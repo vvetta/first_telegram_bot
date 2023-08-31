@@ -1,7 +1,7 @@
 import aiogram
 
 # from secret.py
-from secret import API_TOKEN
+from bot_files.secret import API_TOKEN
 
 
 bot = aiogram.Bot(API_TOKEN)
