@@ -1,7 +1,17 @@
 import aiogram
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
 # from secret.py
 from secret import API_TOKEN
+
+
+kb = ReplyKeyboardMarkup(resize_keyboard=True)
+button_help = KeyboardButton('/help')
+button_sticker = KeyboardButton('/sticker')
+button_photo = KeyboardButton('/photo')
+button_location = KeyboardButton('/location')
+kb.add(button_help).insert(button_sticker).add(button_photo).insert(button_location)
+
 
 HELP_COMMAND = """
 /help - список команд
@@ -34,9 +44,8 @@ async def help_command(message: aiogram.types.Message):
 @dp.message_handler(commands=['start'])
 async def start_command(message: aiogram.types.Message):
     await message.delete() # Удаляет сообщение пользователя
-    await message.answer(text='Добро пожаловать!🤡\n'
-                                'Список команд бота: \n')
-    await message.answer(text=HELP_COMMAND)
+    await message.answer(text='Добро пожаловать!🤡\n',
+                         reply_markup=kb)
     # await message.answer('<strong>Тут будет сообщение</strong>', parse_mode='HTML')
 
 
