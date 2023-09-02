@@ -1,16 +1,23 @@
 import aiogram
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 
 # from secret.py
 from secret import API_TOKEN
 
 
-kb = ReplyKeyboardMarkup(resize_keyboard=True)
-button_help = KeyboardButton('/help')
-button_sticker = KeyboardButton('/sticker')
-button_photo = KeyboardButton('/photo')
-button_location = KeyboardButton('/location')
-kb.add(button_help).insert(button_sticker).add(button_photo).insert(button_location)
+# kb = ReplyKeyboardMarkup(resize_keyboard=True)
+# button_help = KeyboardButton('/help')
+# button_sticker = KeyboardButton('/sticker')
+# button_photo = KeyboardButton('/photo')
+# button_location = KeyboardButton('/location')
+# kb.add(button_help).insert(button_sticker).add(button_photo).insert(button_location)
+
+ikb = InlineKeyboardMarkup(row_width=2)
+button_1 = InlineKeyboardButton(text='help', url='yandex.ru')
+button_2 = InlineKeyboardButton(text='sticker', url='yandex.ru')
+button_3 = InlineKeyboardButton(text='photo', url='yandex.ru')
+button_4 = InlineKeyboardButton(text='location', url='yandex.ru')
+ikb.add(button_1, button_2, button_3, button_4)
 
 
 HELP_COMMAND = """
@@ -43,9 +50,9 @@ async def help_command(message: aiogram.types.Message):
     
 @dp.message_handler(commands=['start'])
 async def start_command(message: aiogram.types.Message):
-    await message.delete() # Удаляет сообщение пользователя
+    # await message.delete() # Удаляет сообщение пользователя
     await message.answer(text='Добро пожаловать!🤡\n',
-                         reply_markup=kb)
+                         reply_markup=ikb)
     # await message.answer('<strong>Тут будет сообщение</strong>', parse_mode='HTML')
 
 
