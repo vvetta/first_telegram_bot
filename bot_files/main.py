@@ -12,12 +12,13 @@ from secret import API_TOKEN
 # button_location = KeyboardButton('/location')
 # kb.add(button_help).insert(button_sticker).add(button_photo).insert(button_location)
 
-ikb = InlineKeyboardMarkup(row_width=2)
-button_1 = InlineKeyboardButton(text='help', url='yandex.ru')
-button_2 = InlineKeyboardButton(text='sticker', url='yandex.ru')
-button_3 = InlineKeyboardButton(text='photo', url='yandex.ru')
-button_4 = InlineKeyboardButton(text='location', url='yandex.ru')
-ikb.add(button_1, button_2, button_3, button_4)
+
+# ikb = InlineKeyboardMarkup(row_width=2)
+# button_1 = InlineKeyboardButton(text='help', url='yandex.ru')
+# button_2 = InlineKeyboardButton(text='sticker', url='yandex.ru')
+# button_3 = InlineKeyboardButton(text='photo', url='yandex.ru')
+# button_4 = InlineKeyboardButton(text='location', url='yandex.ru')
+# ikb.add(button_1, button_2, button_3, button_4)
 
 
 HELP_COMMAND = """
@@ -51,9 +52,23 @@ async def help_command(message: aiogram.types.Message):
 @dp.message_handler(commands=['start'])
 async def start_command(message: aiogram.types.Message):
     # await message.delete() # Удаляет сообщение пользователя
+    
+    ikb = InlineKeyboardMarkup(row_width=2)
+    button_1 = InlineKeyboardButton(text='💩', callback_data='func_1')
+    button_2 = InlineKeyboardButton(text='💋', callback_data='func_2')
+    ikb.add(button_1, button_2)
+    
     await message.answer(text='Добро пожаловать!🤡\n',
                          reply_markup=ikb)
     # await message.answer('<strong>Тут будет сообщение</strong>', parse_mode='HTML')
+    
+
+@dp.callback_query_handler()
+async def callback_func(callback: aiogram.types.CallbackQuery):
+    if callback.data == 'func_1':
+        await callback.answer(text='Ты какашка!', show_alert=True)
+    elif callback.data == 'func_2':
+        await callback.answer(text='Чмок!')
 
 
 @dp.message_handler(commands=['sticker'])
