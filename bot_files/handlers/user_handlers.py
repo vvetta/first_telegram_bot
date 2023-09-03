@@ -9,7 +9,7 @@ async def cmd_start(message: types.Message) -> None:
     
     await message.answer (
         text=reply_text,
-        reply_markup=get_main_keyboard
+        reply_markup=get_main_keyboard()
         )
     
     
